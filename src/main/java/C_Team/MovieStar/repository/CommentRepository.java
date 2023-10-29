@@ -1,4 +1,9 @@
 package C_Team.MovieStar.repository;
 
-public interface CommentRepository {
+import C_Team.MovieStar.entity.CommentEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CommentRepository extends JpaRepository<CommentEntity,Integer> {
 }
