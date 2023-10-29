@@ -5,15 +5,16 @@ import jakarta.persistence.*;
 public class CommentEntity {
 
     @Id
+    @Column(name = "comment_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int COMMENT_CODE;
+    private int CommentCode;
 
-    @Column
-    private int USER_CODE;
+    @Column(name = "user_code")
+    private int UserCode;
 
-    @Column
-    private int MOVIE_CODE;
+    @Column(name = "movie_code")
+    private int MovieCode;
 
-    @Column
-    private String Comment_Content;
+    @Column(name = "comment_content")
+    private String CommentContent;
 }

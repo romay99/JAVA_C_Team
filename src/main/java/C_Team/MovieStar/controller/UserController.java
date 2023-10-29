@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/signup") // 회원가입 메서드
     public String signUp(@RequestBody UserDto userDto){
         userService.createUser(userDto);
         return "test";

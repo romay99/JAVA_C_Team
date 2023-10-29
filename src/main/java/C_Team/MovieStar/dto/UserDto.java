@@ -9,17 +9,17 @@ import lombok.Setter;
 @Setter
 @Builder
 public class UserDto {
-    public String User_Id;
-    public String User_Password;
-    public String User_Tel;
-    public String User_Name;
+    public String UserId;
+    public String UserPassword;
+    public String UserTel;
+    public String UserName;
 
     public UserEntity toEntity(UserDto dto){
         return UserEntity.builder()
-                .id(dto.getUser_Id())
-                .pw(dto.getUser_Password())
-                .tel(dto.getUser_Tel())
-                .name(dto.getUser_Name())
+                .id(dto.getUserId())
+                .pw(dto.getUserPassword())
+                .tel(dto.getUserTel())
+                .name(dto.getUserName())
                 .build();
     }
 }

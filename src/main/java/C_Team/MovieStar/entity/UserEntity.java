@@ -9,26 +9,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserEntity {
     @Id
+    @Column(name = "user_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int USER_CODE;
+    private int UserCode;
 
-    @Column
-    private String User_Id;
+    @Column(name="user_id")
+    private String UserId;
 
-    @Column
-    private String User_Password;
+    @Column(name = "user_Password")
+    private String UserPassword;
 
-    @Column
-    private String User_Tel;
+    @Column(name = "user_tel")
+    private String UserTel;
 
-    @Column
-    private String User_Name;
+    @Column(name="user_name")
+    private String UserName;
 
     @Builder
     public UserEntity(String id,String pw,String tel,String name){
-    this.User_Id = id;
-    this.User_Password = pw;
-    this.User_Name = name;
-    this.User_Tel = tel;
+    this.UserId = id;
+    this.UserPassword = pw;
+    this.UserName = name;
+    this.UserTel = tel;
     }
 }
