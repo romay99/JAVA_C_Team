@@ -6,6 +6,8 @@ import C_Team.MovieStar.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class MovieService {
@@ -15,6 +17,11 @@ public class MovieService {
         MovieEntity entity = dto.toEntity(dto);
         movieRepository.save(entity);
         return dto;
+    }
+
+    public List<MovieEntity> showAllMovie(){
+
+        return movieRepository.findAll();
     }
 
 

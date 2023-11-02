@@ -7,12 +7,12 @@ public class StarEntity {
     @Id
     @Column(name = "star_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int StarCode;
+    private int starCode;
     @Column(name = "user_code")
-    private int UserCode;
+    private int userCode;
     @Column(name = "movie_code")
-    private int MovieCode;
+    private int movieCode;
     @Column(name = "star_count")
-    private int StarCount;
+    private int starCount;
 
 }

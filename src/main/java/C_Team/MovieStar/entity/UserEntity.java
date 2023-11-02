@@ -11,25 +11,25 @@ public class UserEntity {
     @Id
     @Column(name = "user_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int UserCode;
+    private int userCode;
 
     @Column(name="user_id")
-    private String UserId;
+    private String userId;
 
     @Column(name = "user_Password")
-    private String UserPassword;
+    private String userPassword;
 
     @Column(name = "user_tel")
-    private String UserTel;
+    private String userTel;
 
     @Column(name="user_name")
-    private String UserName;
+    private String userName;
 
     @Builder
     public UserEntity(String id,String pw,String tel,String name){
-    this.UserId = id;
-    this.UserPassword = pw;
-    this.UserName = name;
-    this.UserTel = tel;
+    this.userId = id;
+    this.userPassword = pw;
+    this.userName = name;
+    this.userTel = tel;
     }
 }
