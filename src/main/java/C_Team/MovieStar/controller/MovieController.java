@@ -6,10 +6,7 @@ import C_Team.MovieStar.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,12 @@ public class MovieController {
     public String uploadMovie(@RequestBody MovieDto dto){
         movieService.uploadMovie(dto);
         return "main";
+    }
+
+    @GetMapping("/view/{id}")
+    public String movieViewPage(@PathVariable int id,Model model){
+        MovieEntity entity= movieService.findMovieById(id).get();
+        model.addAttribute("movie", entity);
+        return "movieView";
     }
 }
