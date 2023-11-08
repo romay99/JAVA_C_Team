@@ -3,10 +3,12 @@ package C_Team.MovieStar.entity;
 import C_Team.MovieStar.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class UserEntity {
     @Id
     @Column(name = "user_code")
