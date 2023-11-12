@@ -35,4 +35,8 @@ public class UserService {
         // 로그인이 성공하면 true 반환
         return entityPw.equals(userPw);
     }
+
+    public boolean userIdCheck(String userId) { // 유저 ID 중복체크 중복이면 True 중복아니면 False
+        return userRepository.findByUserId(userId).isPresent();
+    }
 }

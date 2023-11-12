@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    header {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    header a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 18px;
+      margin-left: 5px;
+    }
+
+    .home-icon {
+      width: 20px;
+      height: 20px;
+      background-color: #333;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .register-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+      margin-top: 30px; /* Adjust as needed */
+    }
+
+    .register-container h2 {
+      color: #333;
+    }
+
+    .register-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-group button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="home-icon"></div>
+  <a href="#">Home</a>
+</header>
+<div class="register-container">
+  <h2>회원가입</h2>
+  <form class="register-form" th:action="@{http://localhost:8080/user/signup}" method="post">
+    <div class="form-group">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" name="userId" required>
+    </div>
+    <div class="form-group">
+      <label for="userPassword">Password:</label>
+      <input type="password" id="userPassword" name="userPassword" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" onfocusout="validateForm()" required>
+    </div>
+    <div class="form-group">
+      <label for="userName">Name:</label>
+      <input type="text" id="userName" name="userName" required>
+    </div>
+    <div class="form-group">
+      <label for="userPhoneNumber">Phone Number:</label>
+      <input type="tel" id="userPhoneNumber" name="userTel" placeholder="010-xxxx-xxxx" required>
+    </div>
+    <div class="form-group">
+      <button type="submit">회원가입</button>
+      <button type="button" onclick="location.href='http://localhost:8080/test/login'">로그인 페이지로</button>
+    </div>
+  </form>
+</div>
+<script>
+  function validateForm() {
+    var password = document.getElementById("userPassword").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+</body>
+</html>

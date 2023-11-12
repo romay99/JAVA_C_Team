@@ -9,11 +9,13 @@ import lombok.Setter;
 public class MovieDto {
 
     public String Title;
+    public String posterUrl;
     public String Sysnopsis;
 
     public MovieEntity toEntity(MovieDto dto){
         return MovieEntity.builder()
                 .title(dto.getTitle())
+                .moviePosterUrl(dto.getPosterUrl())
                 .sysnop(dto.getSysnopsis())
                 .build();
     }
