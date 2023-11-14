@@ -1,15 +1,130 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바 C조</title>
+    <style>
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        /* 로고 */
+        #logo {
+            max-width: 100px;
+            max-height: 50px;
+        }
+
+        /* 검색창 */
+        #search-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #search-box {
+            margin-left: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #search-btn {
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 로그인, 회원가입 버튼 */
+        #auth-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .auth-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 추가된 여백 */
+        #space {
+            height: 150px;
+        }
+
+        /* 표 */
+        table {
+            width: 70%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* 표 이미지 */
+        .table-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-메인페이지
-<p>
-<tr th:each="movie : ${movieList}">
-    <td th:text="${movie.movieTitle}">dd</td>
-</tr>
-</p>
+
+<header>
+    <!-- 로고 칸 -->
+    <div>
+        <img id="logo" src="https://mblogthumb-phinf.pstatic.net/MjAxODA0MjRfNDYg/MDAxNTI0NTQ5MDc3MDU1.iF25cKVnG3Ae8BkD20IIoB5U1vlOcN3kXWt7XjU0jR8g.1yRmaxjdNtOgATk4gnZ_cr4WnoBauqUgoE0yg0q4QWog.JPEG.beelike1115/image_5370526891524549066762.jpg?type=w800" alt="로고">
+    </div>
+
+    <!-- 검색창 -->
+    <div id="search-container">
+        <input type="text" id="search-box" placeholder="검색어를 입력하세요">
+        <button id="search-btn">검색</button>
+
+        <!-- 로그인, 회원가입 버튼 -->
+        <div id="auth-buttons">
+            <a th:href="@{/user/login}"><button class="auth-button">로그인</button></a>
+            <a th:href="@{/user/signup}"><button class="auth-button">회원가입</button></a>
+        </div>
+    </div>
+</header>
+
+<!-- 추가된 여백 -->
+<div id="space"></div>
+
+<!-- 표 -->
+<table>
+    <thead>
+
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movieList}">
+        <td><img class="table-image" th:src="${movie.moviePosterUrl}" alt="이미지 1" width="180px;" height= "80px;"></td>
+        <td><img class="table-image" th:src="@{movie.moviePosterUrl}" alt="이미지 1" width="180px;" height= "80px;"></td>
+        <p th:text="${movie.moviePosterUrl}"></p>
+
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -27,9 +27,9 @@ public class MovieEntity {
     private String movieSysnopsis;
 
     @Builder
-    public MovieEntity(String title,String sysnop,String moviePosterUrl){
+    public MovieEntity(String title,String synopsis,String moviePosterUrl){
         this.movieTitle = title;
-        this.movieSysnopsis = sysnop;
+        this.movieSysnopsis = synopsis;
         this.moviePosterUrl = moviePosterUrl;
     }
 

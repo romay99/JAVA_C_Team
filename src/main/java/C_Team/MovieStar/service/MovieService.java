@@ -6,6 +6,8 @@ import C_Team.MovieStar.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +17,18 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public MovieDto uploadMovie(MovieDto dto) {
-        MovieEntity entity = dto.toEntity(dto);
+        String saveUrl = "C:\\java_cTeam\\moviePoster"; // 파일 저장 경로
+        File savePoster = new File(saveUrl + "\\" + dto.getFileNewName()+".jpg");
+        try {
+            dto.getPoster().transferTo(savePoster);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MovieEntity entity = MovieEntity.builder()
+                .title(dto.getTitle())
+                .moviePosterUrl(saveUrl+"\\"+dto.getFileNewName()+".jpg")
+                .synopsis(dto.getSynopsis())
+                .build();
         movieRepository.save(entity);
         return dto;
     }

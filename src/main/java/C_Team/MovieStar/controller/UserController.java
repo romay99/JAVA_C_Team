@@ -3,10 +3,8 @@ package C_Team.MovieStar.controller;
 import C_Team.MovieStar.dto.UserDto;
 import C_Team.MovieStar.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
