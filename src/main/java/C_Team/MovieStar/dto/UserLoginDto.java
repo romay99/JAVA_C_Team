@@ -7,8 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CommentDto {
-    public String contents;
-    public String writer;
-    public int movieCode;
+public class UserLoginDto {
+    private String userId;
+    private String userPassword;
 }

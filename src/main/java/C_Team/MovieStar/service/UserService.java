@@ -1,6 +1,7 @@
 package C_Team.MovieStar.service;
 
 import C_Team.MovieStar.dto.UserDto;
+import C_Team.MovieStar.dto.UserLoginDto;
 import C_Team.MovieStar.entity.UserEntity;
 import C_Team.MovieStar.repository.UserRepository;
 
@@ -24,7 +25,7 @@ public class UserService {
         return userDto;
     }
 
-    public boolean loginUser(UserDto userDto) {
+    public boolean loginUser(UserLoginDto userDto) {
         String userId = userDto.getUserId();
         String userPw = userDto.getUserPassword();
         Optional<UserEntity> entity = userRepository.findByUserId(userId);

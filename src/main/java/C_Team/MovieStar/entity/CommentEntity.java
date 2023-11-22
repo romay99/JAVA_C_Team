@@ -1,7 +1,12 @@
 package C_Team.MovieStar.entity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 public class CommentEntity {
 
     @Id
@@ -10,11 +15,18 @@ public class CommentEntity {
     private int commentCode;
 
     @Column(name = "user_code")
-    private int userCode;
+    private String writer;
 
     @Column(name = "movie_code")
     private int movieCode;
 
     @Column(name = "comment_content")
     private String commentContent;
+
+    @Builder
+    public CommentEntity(String writer, int movieCode, String commentContent) {
+        this.writer = writer;
+        this.movieCode = movieCode;
+        this.commentContent = commentContent;
+    }
 }

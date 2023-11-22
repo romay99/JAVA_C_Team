@@ -4,35 +4,69 @@
     <meta charset="UTF-8">
     <title>영화 상세정보</title>
     <link rel="stylesheet" href="/css/details.css">
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="container">
     <header id="header">
         <div id="logo">
-            <a href="http://localhost:8080/test/main">
+            <a href="http://localhost:8080/movie/main">
                 <h1>oo피디아</h1>
             </a>
         </div>
         <nav>
-            <ul id="topMenu">
-                <li><a href="#">회원가입</a></li>
-                <li><a href="#">로그인</a></li>
-            </ul>
         </nav>
     </header>
     <aside id="left-sidebar">
-        <img src="images/1.jpg" width=250>
+        <img th:src="${movie.moviePosterUrl}" width=250>
     </aside>
     <section id="contents">
         <h1 th:text ="${movie.movieTitle}" id="name">그대들은 어떻게 살 것인가</h1>
         <p th:text ="${movie.movieSysnopsis}" id="description">화재로 어머니를 잃은 11살 소년 ‘마히토’는 아버지와 함께 어머니의 고향으로 간다. 어머니에 대한 그리움과 새로운 보금자리에 적응하느라 힘들어하던 ‘마히토’ 앞에 정체를 알 수 없는 왜가리 한 마리가 나타나고, 저택에서 일하는 일곱 할멈으로부터 왜가리가 살고 있는 탑에 대한 신비로운 이야기를 듣게 된다. 그러던 어느 날, ‘마히토’는 사라져버린 새엄마 ‘나츠코’를 찾기 위해 탑으로 들어가고, 왜가리가 안내하는 대로 이세계(異世界)의 문을 통과하는데…!</p>
     </section>
     <aside id="right-sidebar">
-        <h2>사이드바</h2>
+
     </aside>
     <footer id="footer">
-        <h2>푸터</h2>
+
     </footer>>
+    <!-- 댓글 작성 영역 -->
+    <div id="comment-write">
+        <input id="writer" placeholder="댓글작성자">
+        <input id="commentContents" placeholder="댓글내용">
+        <button id="commentWriteButton" onclick="commentWrite()">댓글 작성</button>
+
+    </div>
+    <!-- 댓글 출력 영역 -->
+    <div>
+
+    </div>
+
 </div>
 </body>
+<script th:inline="javascript">
+    const commentWrite = () => {
+        const commentWriter = document.getElementById("writer").value;
+        const commentContents = document.getElementById("commentContents").value;
+        const movieCode=[[${movie.movieCode}]];
+        console.log(commentContents)
+        console.log(commentWriter)
+        $.ajax({
+           type:"post",
+           url:"/comment/post" ,
+            data:{
+               writer:commentWriter,
+                contents:commentContents,
+                movieCode:movieCode
+            },
+            success: function (res){
+               console.log("요청성공" , res);
+               alert("댓글을 작성하였습니다.")
+            }
+        });
+    }
+
+</script>
 </html>

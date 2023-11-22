@@ -1,5 +1,6 @@
 package C_Team.MovieStar.controller;
 
+import C_Team.MovieStar.dto.ApiMovieDto;
 import C_Team.MovieStar.dto.MovieDto;
 import C_Team.MovieStar.entity.MovieEntity;
 import C_Team.MovieStar.service.MovieService;
@@ -43,6 +44,12 @@ public class MovieController {
         System.out.println("dto.getTitle() = " + dto.getTitle());
         System.out.println("dto = " + dto);
         movieService.uploadMovie(dto);
+        return "redirect:/movie/main";
+    }
+
+    public String showApiMovies(Model model,List<ApiMovieDto> movieList){
+
         return "main";
+
     }
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +18,11 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public MovieDto uploadMovie(MovieDto dto) {
-        String saveUrl = "C:\\java_cTeam\\moviePoster"; // 파일 저장 경로
-        File savePoster = new File(saveUrl + "\\" + dto.getFileNewName()+".jpg");
+        String projectFilePath = System.getProperty("user.dir");
+        System.out.println(projectFilePath);
+        String saveUrl = "\\src\\main\\resources\\static\\images"; // 파일 저장 경로
+        File savePoster = new File(projectFilePath+ saveUrl + "\\" + dto.getFileNewName()+".jpg");
+
         try {
             dto.getPoster().transferTo(savePoster);
         } catch (IOException e) {
@@ -26,7 +30,7 @@ public class MovieService {
         }
         MovieEntity entity = MovieEntity.builder()
                 .title(dto.getTitle())
-                .moviePosterUrl(saveUrl+"\\"+dto.getFileNewName()+".jpg")
+                .moviePosterUrl("/images/"+dto.getFileNewName()+".jpg")
                 .synopsis(dto.getSynopsis())
                 .build();
         movieRepository.save(entity);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="" lang="ko">
 <head>
     <script
             src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -68,25 +68,42 @@
 
         /* 표 */
         table {
-            width: 70%;
+            width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
         th, td {
-
-            padding: 8px;
+            padding: 12px;
             text-align: center;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #007bff;
+            color: #fff;
         }
 
-        /* 표 이미지 */
+        /* 표 이미지 및 영화 제목 */
+        .table-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* 영화 제목과 이미지 사이 간격 조절 */
+        }
+
+        .table-cell {
+            flex: 0 0 calc(14.28% - 20px); /* 100% / 7 - 간격(20px) */
+            max-width: calc(14.28% - 20px); /* 100% / 7 - 간격(20px) */
+            box-sizing: border-box;
+        }
+
         .table-image {
             max-width: 100%;
-            height: auto;
+            max-height: 150px;
+        }
+
+        .table-title {
+            text-align: center;
         }
     </style>
 </head>
@@ -100,9 +117,9 @@
 
     <!-- 검색창 -->
     <form th:action="@{/api/test}" method="post">
-    <div id="search-container">
-        <input type="text" id="search-box" name="movieTitle" placeholder="검색어를 입력하세요">
-        <button id="search-btn" type="submit">검색</button>
+        <div id="search-container">
+            <input type="text" id="search-box" name="movieTitle" placeholder="검색어를 입력하세요">
+            <button id="search-btn" type="submit">검색</button>
     </form>
         <!-- 로그인, 회원가입 버튼 -->
         <div id="auth-buttons">
@@ -123,9 +140,23 @@
     </thead>
     <tbody>
     <tr th:each="movie : ${movieList}">
-        <a th:href="@{/movie/view/{moviecode}(moviecode=${movie.movieCode})}">
-            <td><img class="table-image" th:src="${movie.moviePosterUrl}" alt="이미지 1" width="180px" height="80px"></td>
-        </a>
+        <td class="table-cell">
+            <div class="table-row">
+                <div class="table-image" th:if="${movie.posterUrl != null}">
+                    <a th:href="@{/api/view/{id}(id=${movie.movieId})}">
+                        <img th:src="${movie.posterUrl}" th:alt="${movie.title}" class="table-image" />
+                    </a>
+                </div>
+                <div class="table-image" th:if="${movie.posterUrl == null}">
+                    <a th:href="@{/api/view/{id}(id=${movie.movieId})}">
+                        <img th:src="${https://api.thecatapi.com/v1/images/search}" th:alt="${movie.title}" class="table-image" />
+                    </a>
+                </div>
+                <div class="table-title">
+                    <span th:text="${movie.title}"></span>
+                </div>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -148,7 +179,7 @@
 
 
         })
-        return "ㅇㅇ"
+        return ""
     }
 
 

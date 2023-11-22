@@ -95,7 +95,7 @@
 </header>
 <div class="login-container">
     <h2>Login</h2>
-    <form class="login-form" th:action="@{http://localhost:8080/user/login}" method="post">
+    <form class="login-form" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="userId" required>
@@ -105,13 +105,48 @@
             <input type="password" id="password" name="userPassword" required>
         </div>
         <div class="form-group">
-            <button type="submit">로그인</button>
+            <button type="submit" id="btn_signin">로그인</button>
             <button type="button" onclick="location.href='http://localhost:8080/user/signup'">회원가입</button>
         </div>
+        <script> /* fetch 처리 */
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var formData = new FormData();
+            formData.append("userId", username);
+            formData.append("userPassword", password);
+
+            fetch("/user/login", {
+                method: "POST",
+                body: formData,
+                redirect: 'follow' // 'follow', 'error', 'manual'
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        return response.json()
+                            .then(json=>{
+                                console.log(json.toString())
+                                window.location.href = response.url;
+                            })
+                        // 리다이렉션 URL로 이동
+
+                    } else {
+
+                        // 실패 메시지 확인
+                    }
+                })
+                .catch(error => {
+                    console.log("에러뜸")
+                    alert('에러뜸')
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+
+        </script>
+
     </form>
-    <script th:if="${status != 200}">
-        alert("잘못된 ID 혹은 Password 입니다.")
-    </script>
+
 </div>
 </body>
 </html>
