@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="" lang="ko">
 <head>
-    <script
-            src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자바 C조</title>
     <style>
-
         header {
             display: flex;
             justify-content: space-between;
@@ -16,14 +14,20 @@
             padding: 10px;
             background-color: #f0f0f0;
         }
+        body {
+            background-color: #d0e8b9;
+        }
 
-        /* 로고 */
         #logo {
             max-width: 100px;
             max-height: 50px;
         }
 
-        /* 검색창 */
+        #main-page-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
         #search-container {
             display: flex;
             align-items: center;
@@ -31,21 +35,22 @@
         }
 
         #search-box {
-            margin-left: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
+            padding: 15px;
+            width: 400px;
+            border: 1px solid #5e994a; /* 어둡게 조절한 연두색 */
+            border-radius: 10px; /* 둥글게 조절 */
+            margin-right: 10px; /* 검색박스와 버튼 간격 조절 */
         }
 
         #search-btn {
-            margin-left: 5px;
-            padding: 5px 10px;
-            background-color: #007bff;
+            padding: 15px;
+            background-color: #5e994a; /* 어둡게 조절한 연두색 */
             color: #fff;
             border: none;
+            border-radius: 10px; /* 둥글게 조절 */
             cursor: pointer;
         }
 
-        /* 로그인, 회원가입 버튼 */
         #auth-buttons {
             display: flex;
             align-items: center;
@@ -54,134 +59,81 @@
 
         .auth-button {
             margin-left: 10px;
-            padding: 5px 10px;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .auth-button:hover {
             background-color: #007bff;
             color: #fff;
-            border: none;
-            cursor: pointer;
         }
 
-        /* 추가된 여백 */
         #space {
             height: 150px;
         }
 
-        /* 표 */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        th, td {
-            padding: 12px;
+        .movie-poster {
+            display: inline-block;
+            margin: 10px;
             text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        /* 표 이미지 및 영화 제목 */
-        .table-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px; /* 영화 제목과 이미지 사이 간격 조절 */
-        }
-
-        .table-cell {
-            flex: 0 0 calc(14.28% - 20px); /* 100% / 7 - 간격(20px) */
-            max-width: calc(14.28% - 20px); /* 100% / 7 - 간격(20px) */
+            width: 18%;
             box-sizing: border-box;
         }
 
-        .table-image {
+        .movie-poster img {
             max-width: 100%;
-            max-height: 150px;
-        }
-
-        .table-title {
-            text-align: center;
+            height: auto;
+            max-height: 200px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <!-- 로고 칸 -->
     <div>
-        <img id="logo" src="https://mblogthumb-phinf.pstatic.net/MjAxODA0MjRfNDYg/MDAxNTI0NTQ5MDc3MDU1.iF25cKVnG3Ae8BkD20IIoB5U1vlOcN3kXWt7XjU0jR8g.1yRmaxjdNtOgATk4gnZ_cr4WnoBauqUgoE0yg0q4QWog.JPEG.beelike1115/image_5370526891524549066762.jpg?type=w800" alt="로고">
+        <a id="main-page-link" href="http://localhost:8080/movie/main">
+            <h1>Main Page</h1>
+        </a>
     </div>
 
-    <!-- 검색창 -->
-    <form th:action="@{/api/test}" method="post">
+    <form th:action="@{/api/tmdbTest}" method="post">
         <div id="search-container">
             <input type="text" id="search-box" name="movieTitle" placeholder="검색어를 입력하세요">
             <button id="search-btn" type="submit">검색</button>
-    </form>
-        <!-- 로그인, 회원가입 버튼 -->
-        <div id="auth-buttons">
-            <a th:if="${session.userId == null}" th:href="@{/user/login}"><button class="auth-button">로그인</button></a>
-            <a th:if="${session.userId == null}" th:href="@{/user/signup}"><button class="auth-button">회원가입</button></a>
-            <a th:if="${session.userId != null}"><button class="auth-button" onclick="location.href='http://localhost:8080/user/logout'" >로그아웃</button></a>
         </div>
+    </form>
+
+    <div id="auth-buttons">
+        <a th:if="${session.userId == null}" th:href="@{/user/login}"><button class="auth-button">로그인</button></a>
+        <a th:if="${session.userId == null}" th:href="@{/user/signup}"><button class="auth-button">회원가입</button></a>
+        <a th:if="${session.userId != null}" th:href="@{/user/logout}" class="auth-button">로그아웃</a>
     </div>
 </header>
 
-<!-- 추가된 여백 -->
 <div id="space"></div>
 
-<!-- 표 -->
 <table>
-    <thead>
-
-    </thead>
     <tbody>
-    <tr th:each="movie : ${movieList}">
-        <td class="table-cell">
-            <div class="table-row">
-                <div class="table-image" th:if="${movie.posterUrl != null}">
-                    <a th:href="@{/api/view/{id}(id=${movie.movieId})}">
-                        <img th:src="${movie.posterUrl}" th:alt="${movie.title}" class="table-image" />
-                    </a>
-                </div>
-                <div class="table-image" th:if="${movie.posterUrl == null}">
-                    <a th:href="@{/api/view/{id}(id=${movie.movieId})}">
-                        <img th:src="${https://api.thecatapi.com/v1/images/search}" th:alt="${movie.title}" class="table-image" />
-                    </a>
-                </div>
-                <div class="table-title">
-                    <span th:text="${movie.title}"></span>
-                </div>
-            </div>
+    <tr>
+        <td th:each="movie, iterStat : ${movieList}" class="movie-poster"
+            th:classappend="${iterStat.index % 5 == 4} ? 'last-in-row' : ''">
+            <a th:href="@{/api/view/{id}(id=${movie.movieId})}">
+                <img th:src="${movie.posterUrl}" th:alt="${movie.title}"/>
+            </a>
         </td>
     </tr>
     </tbody>
 </table>
 
 </body>
-
-<script th:inline="javascript">
-
-    const searchMovie = () => {
-        const findMovieTitle = document.getElementById("search-box").value;
-        $.ajax({
-            type:"post",
-            url:"/api/test",
-            data:{
-                movieTitle:findMovieTitle
-            },
-            success: function (res){
-                console.log("요청 성공",res,findMovieTitle)
-            }
-
-
-        })
-        return ""
-    }
-
-
-</script>
 </html>

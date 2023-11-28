@@ -12,10 +12,10 @@ public class ApiMovieDto {
     public String title;
     public String synopsis;
     public String posterUrl;
-    public String movieId;
+    public Long movieId;
 
     @Builder
-    public ApiMovieDto(String title, String synopsis, String posterUrl,String movieId) {
+    public ApiMovieDto(String title, String synopsis, String posterUrl,Long movieId) {
         this.title = title;
         this.synopsis = synopsis;
         this.posterUrl = posterUrl;

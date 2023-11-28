@@ -7,6 +7,8 @@ import C_Team.MovieStar.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -25,5 +27,11 @@ public class CommentService {
         commentRepository.save(entity);
         return dto;
     }
+
+    public List<CommentEntity> findAllComment(int movieCode) {
+        List<CommentEntity> list = commentRepository.findAllByMovieCode(movieCode);
+        return list;
+    }
+
 
 }

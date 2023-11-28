@@ -2,7 +2,9 @@ package C_Team.MovieStar.controller;
 
 import C_Team.MovieStar.dto.ApiMovieDto;
 import C_Team.MovieStar.dto.MovieDto;
+import C_Team.MovieStar.entity.CommentEntity;
 import C_Team.MovieStar.entity.MovieEntity;
+import C_Team.MovieStar.service.CommentService;
 import C_Team.MovieStar.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,19 +18,22 @@ import java.util.List;
 @RequestMapping("/movie")
 public class MovieController {
     private final MovieService movieService;
+    private final CommentService commentService;
 
     @GetMapping("/main") // 메인페이지
     public String showAllMovie(Model model){
-        List<MovieEntity> movieList = movieService.showAllMovie();
-        model.addAttribute("movieList",movieList);
-        return "main";
+
+        return "searchMain";
     }
 
 
     @GetMapping("/view/{id}") // 영화 상세페이지
     public String movieViewPage(@PathVariable int id,Model model){
         MovieEntity entity= movieService.findMovieById(id).get();
+        List<CommentEntity> commentEntityList = commentService.findAllComment(id);
+
         model.addAttribute("movie", entity);
+        model.addAttribute("commentlist",commentEntityList);
         return "movieView";
     }
 

@@ -22,6 +22,10 @@
   background-color:#e9e9e9;
   float: left;
 }
+#body {
+  background-color: #d0e8b9;
+}
+
 #contents {
   width: 800px;
   height:600px;
@@ -107,4 +111,37 @@ nav{
   color:#fff;  /* 글자 색 */
   font-weight:600;  /* 글자 굵기 */
   padding:20px 60px;  /* 패딩 */
+}
+
+/* 댓글 부분  */
+
+#comment-write {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  clear: both; /* 부모 요소와의 높이를 자식 요소에 맞추기 위해 clear: both; 추가 */
+}
+
+#comment-write input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: calc(100% - 20px); /* 여백을 고려하여 계산된 너비 설정 */
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#comment-write button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#comment-write button:hover {
+  background-color: #0056b3; /* 호버 효과 */
 }
