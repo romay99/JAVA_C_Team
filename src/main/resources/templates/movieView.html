@@ -39,6 +39,7 @@
     </header>
     <aside id="left-sidebar">
         <img th:src="${movie.posterUrl}" width="250" />
+        <p th:text="'개봉일 :' + ${movie.releaseDate}"></p>
     </aside>
     <section id="contents">
         <h1 th:text="${movie.title}" id="name">그대들은 어떻게 살 것인가</h1>
@@ -55,7 +56,6 @@
         <h1 style="text-align:center;">총 평가 수</h1>
         <p th:text="'총 ' + ${starcount} + ' 개의 평가'" style="text-align:center; margin-top:20px;">총 n명</p>
         <h1 th:text="'평점 : ' + ${starAvg} +'점'" style="text-align:center; margin-top:200px;">평균별점</h1>
-        <img src="img/별점0.png" style="height:30px; width:150px; margin-top:10px;">
 
     </aside>
 

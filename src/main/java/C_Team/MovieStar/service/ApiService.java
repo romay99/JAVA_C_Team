@@ -124,12 +124,14 @@ public class ApiService {
         String title = (String) jsonObject.get("title");
         String synopsis = (String) jsonObject.get("overview");
         String posterPath = (String) jsonObject.get("poster_path");
+        String date = (String) jsonObject.get("release_date");
 
         ApiMovieDto dto = ApiMovieDto.builder()
                 .movieId(movieId)
                 .title(title)
                 .synopsis(synopsis)
                 .posterUrl("https://image.tmdb.org/t/p/original"+posterPath)
+                .date(date)
                 .build();
 
         return dto;
