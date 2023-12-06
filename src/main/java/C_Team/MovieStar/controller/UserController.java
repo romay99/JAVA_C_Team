@@ -2,6 +2,7 @@ package C_Team.MovieStar.controller;
 
 import C_Team.MovieStar.dto.UserDto;
 import C_Team.MovieStar.dto.UserLoginDto;
+import C_Team.MovieStar.entity.UserEntity;
 import C_Team.MovieStar.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -40,7 +43,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> loginUser(UserLoginDto userDto, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<String> loginUser(UserLoginDto userDto, HttpServletRequest request){
         if (userService.loginUser(userDto)) {
             HttpSession session = request.getSession();
             session.setAttribute("userId", userDto.getUserId());
@@ -50,6 +53,7 @@ public class UserController {
         System.out.println("유저 정보  = " + userDto + " 잘못된 로그인 ");
         return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/user/login").body("잘못된 로그인입니다.");
     }
+
 
     @GetMapping("/logout")
     public String logOutUser(HttpServletRequest request) {
@@ -63,5 +67,12 @@ public class UserController {
             model.addAttribute("status",400);
         }
         model.addAttribute("status",200);
+    }
+
+    @GetMapping("/admin")
+    public String adminPage(Model model){
+        List<UserEntity> entityList = userService.findAllUsers();
+        model.addAttribute("userlist", entityList);
+        return "adminpage";
     }
 }

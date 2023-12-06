@@ -1,6 +1,5 @@
 package C_Team.MovieStar.entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentCode;
 
-    @Column(name = "user_code")
+    @Column(name = "user_id")
     private String writer;
 
     @Column(name = "movie_code")

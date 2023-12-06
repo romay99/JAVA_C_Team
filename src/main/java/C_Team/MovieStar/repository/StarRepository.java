@@ -1,4 +1,9 @@
 package C_Team.MovieStar.repository;
 
-public interface StarRepository {
+import C_Team.MovieStar.entity.StarEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StarRepository extends JpaRepository<StarEntity,Integer> {
 }

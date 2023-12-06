@@ -29,24 +29,35 @@
     <aside id="right-sidebar">
 
     </aside>
-    <footer id="footer">
 
-    </footer>>
+    <!-- 별점 주는 영역 -->
+    <footer id="footer">
+        <form>
+            <input type="range" min="1" max="5" id="starCount">
+            <button onclick="giveStar()">별점 주기</button>
+        </form>
+    </footer>
     <!-- 댓글 작성 영역 -->
-    <div id="comment-write" >
-        <input id="writer" placeholder="댓글작성자">
-        <input id="commentContents" placeholder="댓글내용">
+    <div id="comment-write" th:if="${session.userId != null}">
+        <input id="commentContents" placeholder="댓글달기" >
         <button id="commentWriteButton" onclick="commentWrite()">댓글 작성</button>
+    </div>
+    <div>
+        <p></p>
     </div>
     <!-- 댓글 출력 영역 -->
     <div id="comment">
         <table>
-            <tbody>
+            <thead>
             <tr>
-                <td th:each="comment : ${commentlist}">
-                <p th:text="${comment.commentContent}"></p>
-
-                </td>
+                <th>작성자</th>
+                <th>댓글 내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment : ${commentlist}">
+                <td><p th:text="${comment.writer}"></p></td>
+                <td><p th:text="${comment.commentContent}"></p></td>
             </tr>
             </tbody>
         </table>
@@ -56,7 +67,7 @@
 </body>
 <script th:inline="javascript">
     const commentWrite = () => {
-        const commentWriter = document.getElementById("writer").value;
+        const commentWriter =  [[ ${session.userId} ]];
         const commentContents = document.getElementById("commentContents").value;
         const movieCode=[[${movie.movieId}]];
         console.log(commentContents)
@@ -75,6 +86,26 @@
                 location.reload();
             }
         });
+    }
+    const giveStar = () =>{
+        const starCount = document.getElementById("starCount").value;
+        const movieCode=[[${movie.movieId}]];
+        $.ajax({
+            type:"post",
+            url:"/star/givestar",
+            data:{
+                starCount : starCount,
+                movieCode : movieCode
+            },
+            success: function(res){
+                console.log("요청성공",res)
+                location.reload();
+            }
+            }
+
+
+        )
+
     }
 
 </script>

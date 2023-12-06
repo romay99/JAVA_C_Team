@@ -145,3 +145,8 @@ nav{
 #comment-write button:hover {
   background-color: #0056b3; /* 호버 효과 */
 }
+
+/* 별점 슬라이더 부분  */
+#starCount {
+  width: 80%; /* 조절하기 편하도록 슬라이더의 너비를 조절 */
+}

@@ -4,14 +4,10 @@ import C_Team.MovieStar.dto.UserDto;
 import C_Team.MovieStar.dto.UserLoginDto;
 import C_Team.MovieStar.entity.UserEntity;
 import C_Team.MovieStar.repository.UserRepository;
-
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +19,11 @@ public class UserService {
         UserEntity entity = userDto.toEntity(userDto);
         userRepository.save(entity);
         return userDto;
+    }
+
+    public Integer findUserById(String userId){
+        UserEntity entity  = userRepository.findByUserId(userId).get();
+        return entity.getUserCode();
     }
 
     public boolean loginUser(UserLoginDto userDto) {
@@ -39,5 +40,14 @@ public class UserService {
 
     public boolean userIdCheck(String userId) { // 유저 ID 중복체크 중복이면 True 중복아니면 False
         return userRepository.findByUserId(userId).isPresent();
+    }
+
+    public List<UserEntity> findAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(int usercode){
+        userRepository.deleteById(usercode);
+
     }
 }

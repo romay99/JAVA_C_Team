@@ -27,11 +27,16 @@ public class UserEntity {
     @Column(name="user_name")
     private String userName;
 
+    @Column(name="user_role")
+    @Enumerated(value = EnumType.STRING)
+    private UserRole userRole;
+
     @Builder
     public UserEntity(String id,String pw,String tel,String name){
     this.userId = id;
     this.userPassword = pw;
     this.userName = name;
     this.userTel = tel;
+    this.userRole = UserRole.USER;
     }
 }

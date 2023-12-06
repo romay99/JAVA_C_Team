@@ -135,4 +135,41 @@ public class ApiService {
         return dto;
     }
 
+
+    public List<ApiMovieDto> popularMovie() throws IOException, ParseException {
+        OkHttpClient client = new OkHttpClient();
+        List<ApiMovieDto> movieList = new ArrayList<>();
+
+        Request request = new Request.Builder()
+                .url("https://api.themoviedb.org/3/movie/now_playing?language=kr-KO&page=1&region=KR")
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjBmMTMwZDA5MDM5ZjA5NWIyMzA0ZTNjN2U5ZDY3OCIsInN1YiI6IjY1NjU0YjhkZDk1NDIwMDBlMTg5NjYzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n6Ch9CEH6wK1N_4kc6WUEARL66kVdLFxQtSXPmA2VUA")
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String body = response.body().string();
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject)jsonParser.parse(body);
+        JSONArray jsonArray = (JSONArray)jsonObject.get("results");
+
+        for(int i=0 ;i < jsonArray.size();i++){
+            JSONObject result = (JSONObject) jsonArray.get(i);
+            String title = (String) result.get("title");
+            Long id = (Long) result.get("id");
+            String synopsis = (String) result.get("overview");
+            String posterPath = (String) result.get("poster_path");
+            ApiMovieDto dto = ApiMovieDto.builder()
+                    .title(title)
+                    .movieId(id)
+                    .synopsis(synopsis)
+                    .posterUrl("https://image.tmdb.org/t/p/original"+posterPath)
+                    .build();
+            movieList.add(dto);
+
+        }
+        return movieList;
+    }
+
 }
