@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class StarService {
     private final StarRepository starRepository;
 
-    public String giveStarToMovie(int movieCode,int userCode,int starCount){
+    public String giveStarToMovie(int movieCode,int userCode,float starCount){
 
         StarEntity entity = StarEntity.builder()
                 .starCount(starCount)
@@ -21,6 +21,18 @@ public class StarService {
 
         starRepository.save(entity);
         return "";
+    }
 
+    public int starSum(int movieCode){
+        return starRepository.countByMovieCode(movieCode);
+    }
+
+    public float starAvg(int movieCode) {
+        if(starRepository.findAvgStarCountByMovieCode(movieCode) == null){
+            return 0;
+        }
+        float starCount = (float) Math.round(starRepository.findAvgStarCountByMovieCode(movieCode) * 10) / 10;
+
+        return starCount;
     }
 }

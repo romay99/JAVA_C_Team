@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>영화 상세정보</title>
     <link rel="stylesheet" href="/css/details.css">
     <script
-            src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"
+    ></script>
+    <style>
+        .auth-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .auth-button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 <div id="container">
@@ -16,30 +35,46 @@
                 <h1>Main Page</h1>
             </a>
         </div>
-        <nav>
-        </nav>
+        <nav></nav>
     </header>
     <aside id="left-sidebar">
-        <img th:src="${movie.posterUrl}" width=250>
+        <img th:src="${movie.posterUrl}" width="250" />
     </aside>
     <section id="contents">
-        <h1 th:text ="${movie.title}" id="name">그대들은 어떻게 살 것인가</h1>
-        <p th:text ="${movie.synopsis}" id="description">화재로 어머니를 잃은 11살 소년 ‘마히토’는 아버지와 함께 어머니의 고향으로 간다. 어머니에 대한 그리움과 새로운 보금자리에 적응하느라 힘들어하던 ‘마히토’ 앞에 정체를 알 수 없는 왜가리 한 마리가 나타나고, 저택에서 일하는 일곱 할멈으로부터 왜가리가 살고 있는 탑에 대한 신비로운 이야기를 듣게 된다. 그러던 어느 날, ‘마히토’는 사라져버린 새엄마 ‘나츠코’를 찾기 위해 탑으로 들어가고, 왜가리가 안내하는 대로 이세계(異世界)의 문을 통과하는데…!</p>
+        <h1 th:text="${movie.title}" id="name">그대들은 어떻게 살 것인가</h1>
+        <p th:text="${movie.synopsis}" id="description">
+            화재로 어머니를 잃은 11살 소년 ‘마히토’는 아버지와 함께 어머니의 고향으로 간다. 어머니에
+            대한 그리움과 새로운 보금자리에 적응하느라 힘들어하던 ‘마히토’ 앞에 정체를 알 수 없는
+            왜가리 한 마리가 나타나고, 저택에서 일하는 일곱 할멈으로부터 왜가리가 살고 있는 탑에 대한
+            신비로운 이야기를 듣게 된다. 그러던 어느 날, ‘마히토’는 사라져버린 새엄마 ‘나츠코’를 찾기
+            위해 탑으로 들어가고, 왜가리가 안내하는 대로 이세계(異世界)의 문을 통과하는데…!
+        </p>
     </section>
+    <!--총 평가 수, 총 평점-->
     <aside id="right-sidebar">
+        <h1 style="text-align:center;">총 평가 수</h1>
+        <p th:text="'총 ' + ${starcount} + ' 개의 평가'" style="text-align:center; margin-top:20px;">총 n명</p>
+        <h1 th:text="'평점 : ' + ${starAvg} +'점'" style="text-align:center; margin-top:200px;">평균별점</h1>
+        <img src="img/별점0.png" style="height:30px; width:150px; margin-top:10px;">
 
     </aside>
 
     <!-- 별점 주는 영역 -->
     <footer id="footer">
-        <form>
-            <input type="range" min="1" max="5" id="starCount">
+        <form th:if="${session.userId != null}">
+            <input type="range" min="0" max="10" step="1" value="5" id="starCount" oninput="updateSliderValue(this.value)" />
             <button onclick="giveStar()">별점 주기</button>
         </form>
+        <div th:if="${session.userId == null}">
+            <p>별점,댓글을 남기려면 로그인을 해주세요</p>
+            <a th:href="@{/user/login}">
+                <button id="auth-button">로그인하러 가기</button>
+            </a>
+        </div>
     </footer>
     <!-- 댓글 작성 영역 -->
     <div id="comment-write" th:if="${session.userId != null}">
-        <input id="commentContents" placeholder="댓글달기" >
+        <input id="commentContents" placeholder="댓글달기" />
         <button id="commentWriteButton" onclick="commentWrite()">댓글 작성</button>
     </div>
     <div>
@@ -49,20 +84,22 @@
     <div id="comment">
         <table>
             <thead>
-            <tr>
+            <tr th:if="${commentlist.size() != 0}">
                 <th>작성자</th>
                 <th>댓글 내용</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="comment : ${commentlist}">
+            <tr th:if="${commentlist.size() == 0}">
+                <td>작성된 댓글이 없습니다</td>
+            </tr>
+            <tr th:each="comment : ${commentlist}" th:if="${commentlist.size()} != 0">
                 <td><p th:text="${comment.writer}"></p></td>
                 <td><p th:text="${comment.commentContent}"></p></td>
             </tr>
             </tbody>
         </table>
     </div>
-
 </div>
 </body>
 <script th:inline="javascript">
@@ -73,40 +110,47 @@
         console.log(commentContents)
         console.log(commentWriter)
         $.ajax({
-           type:"post",
-           url:"/comment/post" ,
+            type:"post",
+            url:"/comment/post" ,
             data:{
-               writer:commentWriter,
+                writer:commentWriter,
                 contents:commentContents,
                 movieCode:movieCode
             },
             success: function (res){
-               console.log("요청성공" , res);
-               alert("댓글을 작성하였습니다.")
+                console.log("요청성공" , res);
+                alert("댓글을 작성하였습니다.")
                 location.reload();
             }
         });
     }
+    function updateSliderValue(value) {
+        // 부동 소수점으로 변환하여 0.5 간격으로 조절
+        var floatValue = (value / 2).toFixed(1);
+
+        // 여기에서 floatValue를 사용하여 필요한 작업 수행
+
+    }
+
     const giveStar = () =>{
-        const starCount = document.getElementById("starCount").value;
+        var starCount = document.getElementById("starCount").value/2;
         const movieCode=[[${movie.movieId}]];
         $.ajax({
-            type:"post",
-            url:"/star/givestar",
-            data:{
-                starCount : starCount,
-                movieCode : movieCode
-            },
-            success: function(res){
-                console.log("요청성공",res)
-                location.reload();
-            }
+                type:"post",
+                url:"/star/givestar",
+                data:{
+                    starCount : starCount,
+                    movieCode : movieCode
+                },
+                success: function(res){
+                    console.log("요청성공",res)
+                    location.reload();
+                }
             }
 
 
         )
 
     }
-
 </script>
 </html>

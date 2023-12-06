@@ -16,10 +16,10 @@ public class StarEntity {
     @Column(name = "movie_code")
     private int movieCode;
     @Column(name = "star_count")
-    private int starCount;
+    private float starCount;
 
     @Builder
-    public StarEntity(int userCode, int movieCode, int starCount) {
+    public StarEntity(int userCode, int movieCode, float starCount) {
         this.userCode = userCode;
         this.movieCode = movieCode;
         this.starCount = starCount;

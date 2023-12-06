@@ -3,23 +3,23 @@
 /*********************************/
 
 * {
-  margin:0;  /* 브라우저 기본 마진 리셋 */
-  padding:0;  /* 브라우저 기본 패딩 리셋 */
-  box-sizing: border-box;  /* 테두리까지 포함해서 박스 모델 너비로 계산 */
+  margin: 0; /* 브라우저 기본 마진 리셋 */
+  padding: 0; /* 브라우저 기본 패딩 리셋 */
+  box-sizing: border-box; /* 테두리까지 포함해서 박스 모델 너비로 계산 */
 }
 #container {
-  width:1200px;
-  margin:20px auto;
+  width: 1200px;
+  margin: 20px auto;
 }
-#header{
-  width:100%;
-  height:120px;
-  background-color:#acacac;
+#header {
+  width: 100%;
+  height: 120px;
+  background-color: #acacac;
 }
 #left-sidebar {
   width: 250px;
-  height:600px;
-  background-color:#e9e9e9;
+  height: 600px;
+  background-color: #e9e9e9;
   float: left;
 }
 #body {
@@ -28,21 +28,21 @@
 
 #contents {
   width: 800px;
-  height:600px;
-  background-color:#f7f7f7;
+  height: 600px;
+  background-color: #f7f7f7;
   float: left;
 }
 #right-sidebar {
   width: 150px;
-  height:600px;
+  height: 600px;
   float: left;
-  background-color:#e9e9e9;
+  background-color: #e9e9e9;
 }
 #footer {
-  width:100%;
-  height:100px;
-  background-color:#888888;
-  clear:left;
+  width: 100%;
+  height: 100px;
+  background-color: #888888;
+  clear: left;
 }
 
 /*********************************/
@@ -57,7 +57,7 @@
   padding-left: 10px;
   text-decoration: none;
   line-height: 200%;
-  }
+}
 #description {
   width: 500px;
   height: 600px;
@@ -67,23 +67,23 @@
   padding-left: 10px;
   text-decoration: none;
   line-height: 200%;
-  }
+}
 
 /*********************************/
 /* 헤더 영역 - 로고와 내비게이션 */
 /*********************************/
 
-#logo{
-  float:left;   /* 왼쪽으로 플로팅 */
-  width:250px;   /*  너비 */
-  height:100px;   /* 높이 */
-  line-height:100px;  /* 세로로 중간에 맞춤 - 줄간격을 높이 값과 같게 */
-  padding-left:20px;  /* 왼쪽에 여백 */
+#logo {
+  float: left; /* 왼쪽으로 플로팅 */
+  width: 250px; /*  너비 */
+  height: 100px; /* 높이 */
+  line-height: 100px; /* 세로로 중간에 맞춤 - 줄간격을 높이 값과 같게 */
+  padding-left: 20px; /* 왼쪽에 여백 */
 }
 #logo h1 {
-  font-weight:700;
-  font-size:40px;   /* 글자 크기 */
-  color:#000000;   /* 글자 색*/
+  font-weight: 700;
+  font-size: 40px; /* 글자 크기 */
+  color: #000000; /* 글자 색*/
 }
 /* 로고 밑줄 제거 */
 a {
@@ -92,25 +92,25 @@ a {
 ul {
   list-style: none;
 }
-nav{
-  float:right;   /* 오른쪽으로 플로팅 */
-  width:900px;   /*   너비 */
-  height:100px;   /* 메뉴 영역 높이 */
-  padding-top:40px;  /* 메뉴를 아래로 내리기 위해 */
+nav {
+  float: right; /* 오른쪽으로 플로팅 */
+  width: 900px; /*   너비 */
+  height: 100px; /* 메뉴 영역 높이 */
+  padding-top: 40px; /* 메뉴를 아래로 내리기 위해 */
 }
 #topMenu {
-  height:60px;
+  height: 60px;
 }
 #topMenu > li {
-  float:right;  /* 메뉴 항목을 왼쪽으로 플로팅 */
+  float: right; /* 메뉴 항목을 왼쪽으로 플로팅 */
   position: relative;
 }
-#topMenu > li > a{
-  display:block;  /* 링크 텍스트는 블록으로 */
-  font-size:1.1em;
-  color:#fff;  /* 글자 색 */
-  font-weight:600;  /* 글자 굵기 */
-  padding:20px 60px;  /* 패딩 */
+#topMenu > li > a {
+  display: block; /* 링크 텍스트는 블록으로 */
+  font-size: 1.1em;
+  color: #fff; /* 글자 색 */
+  font-weight: 600; /* 글자 굵기 */
+  padding: 20px 60px; /* 패딩 */
 }
 
 /* 댓글 부분  */
@@ -149,4 +149,14 @@ nav{
 /* 별점 슬라이더 부분  */
 #starCount {
   width: 80%; /* 조절하기 편하도록 슬라이더의 너비를 조절 */
+}
+
+/* 총 평점, 총 별점 박스 */
+#box {
+  height:200px;
+  width:200px;
+  border-radius: 25px;
+  border: 10px solid black;
+  background-color: #ff0000;
+  z-index:0;
 }

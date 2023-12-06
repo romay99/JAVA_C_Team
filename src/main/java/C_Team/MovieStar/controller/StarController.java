@@ -23,10 +23,10 @@ public class StarController {
         HttpSession session = request.getSession(false);
         String id = session.getAttribute("userId").toString();
         int userCode = userService.findUserById(id);
-        System.out.println(starDto);
 
-        int starCount = starDto.getStarCount();
+        float starCount = starDto.getStarCount();
         int movieCode = starDto.getMovieCode();
+
 
         starService.giveStarToMovie(movieCode,userCode,starCount);
 

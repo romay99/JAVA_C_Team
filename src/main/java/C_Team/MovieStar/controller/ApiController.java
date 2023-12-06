@@ -4,6 +4,7 @@ import C_Team.MovieStar.dto.ApiMovieDto;
 import C_Team.MovieStar.entity.CommentEntity;
 import C_Team.MovieStar.service.ApiService;
 import C_Team.MovieStar.service.CommentService;
+import C_Team.MovieStar.service.StarService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class ApiController {
 
     private final ApiService apiService;
     private final CommentService commentService;
+    private final StarService starService;
 
 
     @PostMapping("/test")
@@ -41,8 +43,12 @@ public class ApiController {
     public String movieViewApi(@PathVariable("id") Long id,Model model) throws IOException, ParseException {
         ApiMovieDto dto = apiService.apiMovieView(id);
         List<CommentEntity> commentEntityList = commentService.findAllComment(id.intValue());
+        int starCount = starService.starSum(id.intValue());
+        float starAvg = starService.starAvg(id.intValue());
         model.addAttribute("movie", dto);
         model.addAttribute("commentlist",commentEntityList);
+        model.addAttribute("starcount", starCount);
+        model.addAttribute("starAvg", starAvg);
         return "movieView";
     }
 }

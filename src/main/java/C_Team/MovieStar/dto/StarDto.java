@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class StarDto {
     public String userId;
-    public int starCount;
+    public float starCount;
     public int movieCode;
 }

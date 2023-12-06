@@ -141,7 +141,7 @@ public class ApiService {
         List<ApiMovieDto> movieList = new ArrayList<>();
 
         Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/now_playing?language=kr-KO&page=1&region=KR")
+                .url("https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1&region=KR")
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjBmMTMwZDA5MDM5ZjA5NWIyMzA0ZTNjN2U5ZDY3OCIsInN1YiI6IjY1NjU0YjhkZDk1NDIwMDBlMTg5NjYzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n6Ch9CEH6wK1N_4kc6WUEARL66kVdLFxQtSXPmA2VUA")

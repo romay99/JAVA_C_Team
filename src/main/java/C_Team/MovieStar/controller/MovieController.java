@@ -7,6 +7,7 @@ import C_Team.MovieStar.entity.MovieEntity;
 import C_Team.MovieStar.service.ApiService;
 import C_Team.MovieStar.service.CommentService;
 import C_Team.MovieStar.service.MovieService;
+import C_Team.MovieStar.service.StarService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,12 @@ public class MovieController {
     private final MovieService movieService;
     private final CommentService commentService;
     private final ApiService apiService;
+    private final StarService starService;
 
     @GetMapping("/main") // 메인페이지
     public String showAllMovie(Model model) throws IOException, ParseException {
         List<ApiMovieDto> apiMovieDtoList = apiService.popularMovie();
         model.addAttribute("movieList",apiMovieDtoList);
-        System.out.println("apiMovieDtoList = " + apiMovieDtoList);
         return "searchMain";
     }
 
@@ -40,9 +41,12 @@ public class MovieController {
     public String movieViewPage(@PathVariable int id, Model model){
         MovieEntity entity= movieService.findMovieById(id).get();
         List<CommentEntity> commentEntityList = commentService.findAllComment(id);
+        int starCount = starService.starSum(id);
+        System.out.println("starCount = " + starCount);
 
         model.addAttribute("movie", entity);
         model.addAttribute("commentlist",commentEntityList);
+        model.addAttribute("starcount",starCount);
 
         return "movieView";
     }
