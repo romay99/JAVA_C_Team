@@ -84,12 +84,20 @@
         h1{
             text-align: center;
         }
+        #logo {
+            max-width: 400px;
+            max-height: 250px;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="color: #fff;">어떤 영화를 검색하시겠어요?</h1>
+    <div>
+        <a href="http://localhost:8080/movie/main">
+            <img src="/images/logo.png" id="logo">
+        </a>
+    </div>
 </header>
 
 <form th:action="@{/api/tmdbTest}" method="post">
